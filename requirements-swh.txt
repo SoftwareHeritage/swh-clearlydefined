@@ -1,2 +1,2 @@
 # Add here internal Software Heritage dependencies, one per line.
-swh.core >= 0.3
+swh.core[http] >= 0.3
