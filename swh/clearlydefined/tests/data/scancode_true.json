@@ -1,0 +1,516 @@
+{
+    "_metadata": {
+        "type": "scancode",
+        "url": "cd:/npm/npmjs/@ngtools/webpack/10.2.1",
+        "fetchedAt": "2020-12-23T00:25:23.043Z",
+        "links": {
+            "self": {
+                "href": "urn:npm:npmjs:@ngtools:webpack:revision:10.2.1:tool:scancode:3.2.2",
+                "type": "resource"
+            },
+            "siblings": {
+                "href": "urn:npm:npmjs:@ngtools:webpack:revision:10.2.1:tool:scancode",
+                "type": "collection"
+            }
+        },
+        "schemaVersion": "3.2.2",
+        "toolVersion": "3.0.2",
+        "contentType": "application/json",
+        "releaseDate": "2020-12-17T17:04:04.916Z",
+        "processedAt": "2020-12-23T00:25:39.586Z"
+    },
+    "content": {
+        "headers": [
+            {
+                "tool_name": "scancode-toolkit",
+                "tool_version": "3.0.2",
+                "options": {
+                    "input": "/tmp/cd-JY1ciM",
+                    "--classify": true,
+                    "--copyright": true,
+                    "--email": true,
+                    "--generated": true,
+                    "--info": true,
+                    "--is-license-text": true,
+                    "--json-pp": "/tmp/cd-00Vl2l",
+                    "--license": true,
+                    "--license-clarity-score": true,
+                    "--license-diag": true,
+                    "--license-text": true,
+                    "--package": true,
+                    "--processes": "2",
+                    "--strip-root": true,
+                    "--summary": true,
+                    "--summary-key-files": true,
+                    "--timeout": "1000.0",
+                    "--url": true
+                },
+                "notice": "Generated with ScanCode and provided on an \"AS IS\" BASIS, WITHOUT WARRANTIES\nOR CONDITIONS OF ANY KIND, either express or implied. No content created from\nScanCode should be considered or used as legal advice. Consult an Attorney\nfor any legal advice.\nScanCode is a free software code scanning tool from nexB Inc. and others.\nVisit https://github.com/nexB/scancode-toolkit/ for support and download.",
+                "start_timestamp": "2020-12-23T002523.840923",
+                "end_timestamp": "2020-12-23T002538.791887",
+                "message": null,
+                "errors": [],
+                "extra_data": {
+                    "files_count": 78
+                }
+            }
+        ],
+        "summary": {
+            "license_expressions": [
+                {
+                    "value": "mit",
+                    "count": 59
+                },
+                {
+                    "value": null,
+                    "count": 19
+                }
+            ],
+            "copyrights": [
+                {
+                    "value": "Copyright (c) Google, Inc.",
+                    "count": 58
+                },
+                {
+                    "value": null,
+                    "count": 20
+                }
+            ],
+            "holders": [
+                {
+                    "value": "Google Inc.",
+                    "count": 58
+                },
+                {
+                    "value": null,
+                    "count": 20
+                }
+            ],
+            "authors": [
+                {
+                    "value": null,
+                    "count": 78
+                }
+            ],
+            "programming_language": [
+                {
+                    "value": "JavaScript",
+                    "count": 38
+                },
+                {
+                    "value": "TypeScript",
+                    "count": 37
+                },
+                {
+                    "value": null,
+                    "count": 2
+                },
+                {
+                    "value": "Python",
+                    "count": 1
+                }
+            ],
+            "packages": [
+                {
+                    "type": "npm",
+                    "namespace": "@ngtools",
+                    "name": "webpack",
+                    "version": "10.2.1",
+                    "qualifiers": null,
+                    "subpath": null,
+                    "primary_language": "JavaScript",
+                    "description": "Webpack plugin that AoT compiles your Angular components and modules.",
+                    "release_date": null,
+                    "parties": [
+                        {
+                            "type": "person",
+                            "role": "author",
+                            "name": "Angular Authors",
+                            "email": null,
+                            "url": null
+                        }
+                    ],
+                    "keywords": [
+                        "angular",
+                        "Angular CLI",
+                        "devkit",
+                        "sdk",
+                        "Angular DevKit",
+                        "webpack",
+                        "plugin",
+                        "aot"
+                    ],
+                    "homepage_url": "https://github.com/angular/angular-cli",
+                    "download_url": "https://registry.npmjs.org/@ngtools/webpack/-/webpack-10.2.1.tgz",
+                    "size": null,
+                    "sha1": null,
+                    "md5": null,
+                    "sha256": null,
+                    "sha512": null,
+                    "bug_tracking_url": "https://github.com/angular/angular-cli/issues",
+                    "code_view_url": null,
+                    "vcs_url": "git+https://github.com/angular/angular-cli.git",
+                    "copyright": null,
+                    "license_expression": "mit",
+                    "declared_license": "MIT",
+                    "notice_text": null,
+                    "manifest_path": "package.json",
+                    "dependencies": [
+                        {
+                            "purl": "pkg:npm/%40angular-devkit/core",
+                            "requirement": "10.2.1",
+                            "scope": "dependencies",
+                            "is_runtime": true,
+                            "is_optional": false,
+                            "is_resolved": false
+                        },
+                        {
+                            "purl": "pkg:npm/enhanced-resolve",
+                            "requirement": "4.3.0",
+                            "scope": "dependencies",
+                            "is_runtime": true,
+                            "is_optional": false,
+                            "is_resolved": false
+                        },
+                        {
+                            "purl": "pkg:npm/webpack-sources",
+                            "requirement": "1.4.3",
+                            "scope": "dependencies",
+                            "is_runtime": true,
+                            "is_optional": false,
+                            "is_resolved": false
+                        },
+                        {
+                            "purl": "pkg:npm/%40angular/compiler-cli",
+                            "requirement": "^10.0.0",
+                            "scope": "peerDependencies",
+                            "is_runtime": true,
+                            "is_optional": false,
+                            "is_resolved": false
+                        },
+                        {
+                            "purl": "pkg:npm/typescript",
+                            "requirement": ">=3.9 < 4.1",
+                            "scope": "peerDependencies",
+                            "is_runtime": true,
+                            "is_optional": false,
+                            "is_resolved": false
+                        },
+                        {
+                            "purl": "pkg:npm/webpack",
+                            "requirement": "^4.0.0",
+                            "scope": "peerDependencies",
+                            "is_runtime": true,
+                            "is_optional": false,
+                            "is_resolved": false
+                        }
+                    ],
+                    "contains_source_code": null,
+                    "source_packages": [],
+                    "purl": "pkg:npm/%40ngtools/webpack@10.2.1",
+                    "repository_homepage_url": "https://www.npmjs.com/package/@ngtools/webpack",
+                    "repository_download_url": "https://registry.npmjs.org/@ngtools/webpack/-/webpack-10.2.1.tgz",
+                    "api_data_url": "https://registry.npmjs.org/@ngtools%2fwebpack",
+                    "files": [
+                        {
+                            "path": "package",
+                            "type": "directory"
+                        }
+                    ]
+                }
+            ]
+        },
+        "license_clarity_score": {
+            "score": 94,
+            "has_declared_license_in_key_files": true,
+            "file_level_license_and_copyright_coverage": 0.76,
+            "has_consistent_key_and_file_level_licenses": true,
+            "is_using_only_spdx_licenses": true,
+            "has_full_text_for_all_licenses": true
+        },
+        "summary_of_key_files": {
+            "license_expressions": [
+                {
+                    "value": "mit",
+                    "count": 2
+                },
+                {
+                    "value": null,
+                    "count": 1
+                }
+            ],
+            "copyrights": [
+                {
+                    "value": null,
+                    "count": 2
+                },
+                {
+                    "value": "Copyright (c) Google, Inc.",
+                    "count": 1
+                }
+            ],
+            "holders": [
+                {
+                    "value": null,
+                    "count": 2
+                },
+                {
+                    "value": "Google Inc.",
+                    "count": 1
+                }
+            ],
+            "authors": [
+                {
+                    "value": null,
+                    "count": 3
+                }
+            ],
+            "programming_language": [
+                {
+                    "value": null,
+                    "count": 2
+                },
+                {
+                    "value": "Python",
+                    "count": 1
+                }
+            ]
+        },
+        "files": [
+            {
+                "path": "package",
+                "type": "directory",
+                "name": "package",
+                "base_name": "package",
+                "extension": "",
+                "size": 0,
+                "date": null,
+                "sha1": null,
+                "md5": null,
+                "mime_type": null,
+                "file_type": null,
+                "programming_language": null,
+                "is_binary": false,
+                "is_text": false,
+                "is_archive": false,
+                "is_media": false,
+                "is_source": false,
+                "is_script": false,
+                "licenses": [],
+                "license_expressions": [],
+                "holders": [],
+                "copyrights": [],
+                "authors": [],
+                "packages": [
+                    {
+                        "type": "npm",
+                        "namespace": "@ngtools",
+                        "name": "webpack",
+                        "version": "10.2.1",
+                        "qualifiers": null,
+                        "subpath": null,
+                        "primary_language": "JavaScript",
+                        "description": "Webpack plugin that AoT compiles your Angular components and modules.",
+                        "release_date": null,
+                        "parties": [
+                            {
+                                "type": "person",
+                                "role": "author",
+                                "name": "Angular Authors",
+                                "email": null,
+                                "url": null
+                            }
+                        ],
+                        "keywords": [
+                            "angular",
+                            "Angular CLI",
+                            "devkit",
+                            "sdk",
+                            "Angular DevKit",
+                            "webpack",
+                            "plugin",
+                            "aot"
+                        ],
+                        "homepage_url": "https://github.com/angular/angular-cli",
+                        "download_url": "https://registry.npmjs.org/@ngtools/webpack/-/webpack-10.2.1.tgz",
+                        "size": null,
+                        "sha1": null,
+                        "md5": null,
+                        "sha256": null,
+                        "sha512": null,
+                        "bug_tracking_url": "https://github.com/angular/angular-cli/issues",
+                        "code_view_url": null,
+                        "vcs_url": "git+https://github.com/angular/angular-cli.git",
+                        "copyright": null,
+                        "license_expression": "mit",
+                        "declared_license": "MIT",
+                        "notice_text": null,
+                        "manifest_path": "package.json",
+                        "dependencies": [
+                            {
+                                "purl": "pkg:npm/%40angular-devkit/core",
+                                "requirement": "10.2.1",
+                                "scope": "dependencies",
+                                "is_runtime": true,
+                                "is_optional": false,
+                                "is_resolved": false
+                            },
+                            {
+                                "purl": "pkg:npm/enhanced-resolve",
+                                "requirement": "4.3.0",
+                                "scope": "dependencies",
+                                "is_runtime": true,
+                                "is_optional": false,
+                                "is_resolved": false
+                            },
+                            {
+                                "purl": "pkg:npm/webpack-sources",
+                                "requirement": "1.4.3",
+                                "scope": "dependencies",
+                                "is_runtime": true,
+                                "is_optional": false,
+                                "is_resolved": false
+                            },
+                            {
+                                "purl": "pkg:npm/%40angular/compiler-cli",
+                                "requirement": "^10.0.0",
+                                "scope": "peerDependencies",
+                                "is_runtime": true,
+                                "is_optional": false,
+                                "is_resolved": false
+                            },
+                            {
+                                "purl": "pkg:npm/typescript",
+                                "requirement": ">=3.9 < 4.1",
+                                "scope": "peerDependencies",
+                                "is_runtime": true,
+                                "is_optional": false,
+                                "is_resolved": false
+                            },
+                            {
+                                "purl": "pkg:npm/webpack",
+                                "requirement": "^4.0.0",
+                                "scope": "peerDependencies",
+                                "is_runtime": true,
+                                "is_optional": false,
+                                "is_resolved": false
+                            }
+                        ],
+                        "contains_source_code": null,
+                        "source_packages": [],
+                        "purl": "pkg:npm/%40ngtools/webpack@10.2.1",
+                        "repository_homepage_url": "https://www.npmjs.com/package/@ngtools/webpack",
+                        "repository_download_url": "https://registry.npmjs.org/@ngtools/webpack/-/webpack-10.2.1.tgz",
+                        "api_data_url": "https://registry.npmjs.org/@ngtools%2fwebpack",
+                        "files": [
+                            {
+                                "path": "package",
+                                "type": "directory"
+                            }
+                        ]
+                    }
+                ],
+                "emails": [],
+                "urls": [],
+                "is_legal": false,
+                "is_manifest": false,
+                "is_readme": false,
+                "is_top_level": true,
+                "is_key_file": false,
+                "is_generated": false,
+                "is_license_text": false,
+                "files_count": 78,
+                "dirs_count": 2,
+                "size_count": 249108,
+                "scan_errors": []
+            },
+            {
+                "path": "package/LICENSE",
+                "type": "file",
+                "name": "LICENSE",
+                "base_name": "LICENSE",
+                "extension": "",
+                "size": 1073,
+                "date": "1985-10-26",
+                "sha1": "34973274ccef6ab4dfaaf86599792fa9c3fe4689",
+                "md5": "dc2a37e472c366af2a7b8bd0f2ba5af4",
+                "mime_type": "text/plain",
+                "file_type": "ASCII text",
+                "programming_language": null,
+                "is_binary": false,
+                "is_text": true,
+                "is_archive": false,
+                "is_media": false,
+                "is_source": false,
+                "is_script": false,
+                "licenses": [
+                    {
+                        "key": "mit",
+                        "score": 97.66,
+                        "name": "MIT License",
+                        "short_name": "MIT License",
+                        "category": "Permissive",
+                        "is_exception": false,
+                        "owner": "MIT",
+                        "homepage_url": "http://opensource.org/licenses/mit-license.php",
+                        "text_url": "http://opensource.org/licenses/mit-license.php",
+                        "reference_url": "https://enterprise.dejacode.com/urn/urn:dje:license:mit",
+                        "spdx_license_key": "MIT",
+                        "spdx_url": "https://spdx.org/licenses/MIT",
+                        "start_line": 1,
+                        "end_line": 21,
+                        "matched_rule": {
+                            "identifier": "mit_160.RULE",
+                            "license_expression": "mit",
+                            "licenses": [
+                                "mit"
+                            ],
+                            "is_license_text": true,
+                            "is_license_notice": false,
+                            "is_license_reference": false,
+                            "is_license_tag": false,
+                            "matcher": "3-seq",
+                            "rule_length": 167,
+                            "matched_length": 167,
+                            "match_coverage": 100,
+                            "rule_relevance": 100
+                        },
+                        "matched_text": "The MIT License\n\nCopyright ([c]) [2017] [Google], [Inc].\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE."
+                    }
+                ],
+                "license_expressions": [
+                    "mit"
+                ],
+                "holders": [
+                    {
+                        "value": "Google, Inc.",
+                        "start_line": 3,
+                        "end_line": 3
+                    }
+                ],
+                "copyrights": [
+                    {
+                        "value": "Copyright (c) 2017 Google, Inc.",
+                        "start_line": 3,
+                        "end_line": 3
+                    }
+                ],
+                "authors": [],
+                "packages": [],
+                "emails": [],
+                "urls": [],
+                "is_legal": true,
+                "is_manifest": false,
+                "is_readme": false,
+                "is_top_level": true,
+                "is_key_file": true,
+                "is_generated": false,
+                "is_license_text": true,
+                "files_count": 0,
+                "dirs_count": 0,
+                "size_count": 0,
+                "scan_errors": []
+            }
+        ]
+    }
+}

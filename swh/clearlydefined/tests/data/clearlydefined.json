@@ -1,0 +1,282 @@
+{
+    "_metadata": {
+        "type": "npm",
+        "url": "cd:/npm/npmjs/@pixi/mesh-extras/5.3.5",
+        "fetchedAt": "2020-12-18T10:26:42.827Z",
+        "links": {
+            "self": {
+                "href": "urn:npm:npmjs:@pixi:mesh-extras:revision:5.3.5:tool:clearlydefined:1.3.4",
+                "type": "resource"
+            },
+            "siblings": {
+                "href": "urn:npm:npmjs:@pixi:mesh-extras:revision:5.3.5:tool:clearlydefined",
+                "type": "collection"
+            },
+            "licensee": {
+                "href": "urn:npm:npmjs:@pixi:mesh-extras:revision:5.3.5:tool:licensee",
+                "type": "collection"
+            },
+            "scancode": {
+                "href": "urn:npm:npmjs:@pixi:mesh-extras:revision:5.3.5:tool:scancode",
+                "type": "collection"
+            },
+            "source": {
+                "href": "urn:git:github:pixijs:pixi.js:revision:b5353da2693f0112230cd2b1be581f9bff0ce2a1",
+                "type": "resource"
+            }
+        },
+        "schemaVersion": "1.3.4",
+        "toolVersion": "1.1.4",
+        "processedAt": "2020-12-18T10:26:43.254Z"
+    },
+    "attachments": [
+        {
+            "path": "package/LICENSE",
+            "token": "8a3c4ecc2f727e1b487daccf186b61457b60a5e1aa7103969fa9b0d8e3ba567b"
+        },
+        {
+            "path": "package/package.json",
+            "token": "85b85a7807ba4fdcd78d622e40497bdbe5f1b3346cdda1fe2cb859224de3d598"
+        }
+    ],
+    "summaryInfo": {
+        "k": 317,
+        "count": 11,
+        "hashes": {
+            "sha1": "c7e6ec806b594c8d5520ca3ffa87bdad27374411",
+            "sha256": "2988c69d931c63cfbcef7b8f2b8e051ea91626bb942596823df83bf4b3e36841"
+        }
+    },
+    "files": [
+        {
+            "path": "package/LICENSE",
+            "hashes": {
+                "sha1": "61c2b3a30496d329e21af70dd2d7e097046d07b7",
+                "sha256": "8a3c4ecc2f727e1b487daccf186b61457b60a5e1aa7103969fa9b0d8e3ba567b"
+            }
+        },
+        {
+            "path": "package/README.md",
+            "hashes": {
+                "sha1": "34973274ccef6ab4dfaaf86599792fa9c3fe4689",
+                "sha256": "60b9c916c43fba00e2d3ba5207b25bf28109e985c3f739f430bb2056423d5aa9"
+            }
+        },
+        {
+            "path": "package/dist/mesh-extras.js",
+            "hashes": {
+                "sha1": "528bebf013e2e42cb02893da85cc2f869a1b3894",
+                "sha256": "571ba0a84584f29d6fd2a73679bccf505fbe5b036cf387a9b4a589d4b2058214"
+            }
+        },
+        {
+            "path": "package/dist/mesh-extras.js.map",
+            "hashes": {
+                "sha1": "ac5255a93cb3c9f8adc21ebab49b75ddc3efc5df",
+                "sha256": "85dc5f84ce91201e88dae1be1bc426678b28f800db9427e0fc94b476b07f7e88"
+            }
+        },
+        {
+            "path": "package/dist/mesh-extras.min.js",
+            "hashes": {
+                "sha1": "108dc6a1e5c4c054b2f47444653e681275296332",
+                "sha256": "6ff463b89cc7d93611db5d0ce2dc6fda43b0ebe61195c347d1cf5477b3364688"
+            }
+        },
+        {
+            "path": "package/dist/mesh-extras.min.js.map",
+            "hashes": {
+                "sha1": "803a059e79c3971989dcaa9b2887710c2a64f963",
+                "sha256": "9152ef85e74534776b7c4576fe88153b44fe5c7afe45ce00034eb2d2eb65dfd8"
+            }
+        },
+        {
+            "path": "package/lib/mesh-extras.es.js",
+            "hashes": {
+                "sha1": "ef77555410ba0e9a53a86ec87c2f2fff7d74b8aa",
+                "sha256": "f36729679a357a235a1a092144b79b6cda2dda35abedfcc99288620882c2e892"
+            }
+        },
+        {
+            "path": "package/lib/mesh-extras.es.js.map",
+            "hashes": {
+                "sha1": "87fb4ce548bce7a7b0ae49bbb67c9ffa4d047bb4",
+                "sha256": "29c5a8573ccc4bc1cd6cb6cc58a86dd7217b10844cd57bdd5cf59d037b061a81"
+            }
+        },
+        {
+            "path": "package/lib/mesh-extras.js",
+            "hashes": {
+                "sha1": "868384a26b5f70fa5bb91c9e1cf9738e7f155bd6",
+                "sha256": "308cadc80383fbbf82a7b5b1ef67046d110e186dd7e11a8d85b02078e2f5869a"
+            }
+        },
+        {
+            "path": "package/lib/mesh-extras.js.map",
+            "hashes": {
+                "sha1": "cef2746b1814f2e08562af28e120821503bc00e8",
+                "sha256": "9c1f29f4a920fb6b008370f47b3be542c1bf8a4cd20099631c8955136e945ab5"
+            }
+        },
+        {
+            "path": "package/package.json",
+            "hashes": {
+                "sha1": "8ddf6cbb2639bee704a914c4a228332ce05215f7",
+                "sha256": "85b85a7807ba4fdcd78d622e40497bdbe5f1b3346cdda1fe2cb859224de3d598"
+            }
+        }
+    ],
+    "package.json": {
+        "name": "@pixi/mesh-extras",
+        "version": "5.3.5",
+        "main": "lib/mesh-extras.js",
+        "module": "lib/mesh-extras.es.js",
+        "bundle": "dist/mesh-extras.js",
+        "description": "Custom Mesh display objects, like Rope and SimplePlane",
+        "author": "Mat Groves",
+        "contributors": [
+            "Matt Karl <matt@mattkarl.com>"
+        ],
+        "homepage": "http://pixijs.com/",
+        "bugs": "https://github.com/pixijs/pixi.js/issues",
+        "license": "MIT",
+        "repository": {
+            "type": "git",
+            "url": "https://github.com/pixijs/pixi.js.git"
+        },
+        "publishConfig": {
+            "access": "public"
+        },
+        "files": [
+            "lib",
+            "dist"
+        ],
+        "dependencies": {
+            "@pixi/constants": "5.3.5",
+            "@pixi/core": "5.3.5",
+            "@pixi/math": "5.3.5",
+            "@pixi/mesh": "5.3.5",
+            "@pixi/utils": "5.3.5"
+        },
+        "devDependencies": {
+            "@pixi/loaders": "5.3.5"
+        },
+        "gitHead": "b5353da2693f0112230cd2b1be581f9bff0ce2a1"
+    },
+    "registryData": {
+        "_id": "@pixi/mesh-extras",
+        "_rev": "37-99af22664aed7bcd0476efccf57088fc",
+        "name": "@pixi/mesh-extras",
+        "dist-tags": {
+            "latest": "5.3.5",
+            "next": "5.0.0-alpha.3",
+            "latest-5.1.x": "5.1.6",
+            "prerelease": "5.4.0-rc.3",
+            "latest-5.2.x": "5.2.5"
+        },
+        "maintainers": [
+            {
+                "name": "bigtimebuddy",
+                "email": "matt@mattkarl.com"
+            }
+        ],
+        "description": "Custom Mesh display objects, like Rope and SimplePlane",
+        "homepage": "http://pixijs.com/",
+        "repository": {
+            "type": "git",
+            "url": "git+https://github.com/pixijs/pixi.js.git"
+        },
+        "contributors": [
+            {
+                "name": "Matt Karl",
+                "email": "matt@mattkarl.com"
+            }
+        ],
+        "author": {
+            "name": "Mat Groves"
+        },
+        "bugs": {
+            "url": "https://github.com/pixijs/pixi.js/issues"
+        },
+        "license": "MIT",
+        "readme": "# @pixi/mesh-extras\n\n## Installation\n\n```bash\nnpm install @pixi/mesh-extras\n```\n\n## Usage\n\n```js\nimport { MeshRenderer } from '@pixi/mesh';\nimport { Renderer } from '@pixi/core';\nimport { Rope } from '@pixi/mesh-extras';\n\nRenderer.registerPlugin('mesh', MeshRenderer);\n\nconst rope = new Rope();\n```",
+        "readmeFilename": "README.md",
+        "manifest": {
+            "name": "@pixi/mesh-extras",
+            "version": "5.3.5",
+            "main": "lib/mesh-extras.js",
+            "module": "lib/mesh-extras.es.js",
+            "bundle": "dist/mesh-extras.js",
+            "description": "Custom Mesh display objects, like Rope and SimplePlane",
+            "author": {
+                "name": "Mat Groves"
+            },
+            "contributors": [
+                {
+                    "name": "Matt Karl",
+                    "email": "matt@mattkarl.com"
+                }
+            ],
+            "homepage": "http://pixijs.com/",
+            "bugs": {
+                "url": "https://github.com/pixijs/pixi.js/issues"
+            },
+            "license": "MIT",
+            "repository": {
+                "type": "git",
+                "url": "git+https://github.com/pixijs/pixi.js.git"
+            },
+            "publishConfig": {
+                "access": "public"
+            },
+            "dependencies": {
+                "@pixi/constants": "5.3.5",
+                "@pixi/core": "5.3.5",
+                "@pixi/math": "5.3.5",
+                "@pixi/mesh": "5.3.5",
+                "@pixi/utils": "5.3.5"
+            },
+            "devDependencies": {
+                "@pixi/loaders": "5.3.5"
+            },
+            "gitHead": "b5353da2693f0112230cd2b1be581f9bff0ce2a1",
+            "_id": "@pixi/mesh-extras@5.3.5",
+            "_nodeVersion": "10.19.0",
+            "_npmVersion": "lerna/3.13.3/node@v10.19.0+x64 (darwin)",
+            "_npmUser": {
+                "name": "bigtimebuddy",
+                "email": "matt@mattkarl.com"
+            },
+            "dist": {
+                "integrity": "sha512-47oHFkxUWQikB+7RT4ZcCecwc/GaKFSbZm6SL7dG12mQ+N5nGAZkWBIDw2d/Ai9PxMHo4ciUCjcS7el0SHkBjA==",
+                "shasum": "c7e6ec806b594c8d5520ca3ffa87bdad27374411",
+                "tarball": "https://registry.npmjs.org/@pixi/mesh-extras/-/mesh-extras-5.3.5.tgz",
+                "fileCount": 11,
+                "unpackedSize": 308318,
+                "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJf26KUCRA9TVsSAnZWagAA/rAP/3UY+d5ycZ5QpSxO9Ke6\nrJEFC0jBfGRprbf4BGgvFil5HXjFX+s0xy5VB9AcSl+bPEDK6LIr6FZrCS85\nMBh4yRJXX+17mTfoSVaoLYA2UEl9fBhIGrryyObSF81TdAOhpKRmU5aPJ4hV\nORmdhetWLj4EOaHFt1pb0f62tVDrZdu8GU+TYqmU8ZpNoIfuw6iC8B79t1+R\njSxDqEUfVxCN3P/JTjakCP/oSqLOf1VSdUq/0wmyE8cdPLw+l8s20t5T7CQj\nCwe5jgVhL+Pg0z1rIQxJqRUzjGXZlnEdt+B5fIhHIcNbKQFtN/JMa1JcwjNA\nY9oAD8eHxGElK5gOtfFEYNqOlUPaeI0iupuaOK1gNVcGeKmvHZleE9dVsYrB\njM6d34F/mI6RPSw/ABOV1v7USWdxKe+f1paNSSMYbJNbehBYttDYxkXkgrLM\nynz7ru1EdnHACpJmcZVkZj/3hTZ0o7YDgRHpbLfIxAc2ETqr7ryN0y37uMAS\ns2kuaC89e6k7pd+91vEHQZtLKhMMtvivBYmdH2ZQWirU34kA9z+l5ux+NAoo\nWR9jfn/8+7S5SB4v0HFSzsgVbAxibuUaNHSvG39eBs9Au14uBdsasTwxaLwN\nRFwiTTJNS4fiCz165VCE08kI4uzrJAyqtblc9+z1gsmtWScpuDN7gJVrfsjx\nPSph\r\n=rg4i\r\n-----END PGP SIGNATURE-----\r\n"
+            },
+            "directories": {},
+            "maintainers": [
+                {
+                    "name": "bigtimebuddy",
+                    "email": "matt@mattkarl.com"
+                }
+            ],
+            "_npmOperationalInternal": {
+                "host": "s3://npm-registry-packages",
+                "tmp": "tmp/mesh-extras_5.3.5_1608229524025_0.8091580391334361"
+            },
+            "_hasShrinkwrap": false
+        },
+        "releaseDate": "2020-12-17T18:25:24.267Z"
+    },
+    "sourceInfo": {
+        "type": "git",
+        "provider": "github",
+        "namespace": "pixijs",
+        "name": "pixi.js",
+        "revision": "b5353da2693f0112230cd2b1be581f9bff0ce2a1",
+        "url": null,
+        "path": null
+    }
+}

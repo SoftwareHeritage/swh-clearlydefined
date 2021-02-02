@@ -1,0 +1,87 @@
+{
+    "described": {
+        "releaseDate": "2019-03-29",
+        "sourceLocation": {
+            "type": "sourcearchive",
+            "provider": "mavencentral",
+            "namespace": "za.co.absa.cobrix",
+            "name": "cobol-parser",
+            "revision": "0.4.0",
+            "url": "http://central.maven.org/maven2/za/co/absa/cobrix/cobol-parser/0.4.0/cobol-parser-0.4.0-sources.jar"
+        },
+        "urls": {
+            "registry": "http://central.maven.org/maven2/za/co/absa/cobrix/cobol-parser",
+            "version": "http://central.maven.org/maven2/za/co/absa/cobrix/cobol-parser/0.4.0",
+            "download": "http://central.maven.org/maven2/za/co/absa/cobrix/cobol-parser/0.4.0/cobol-parser-0.4.0.jar"
+        },
+        "hashes": {
+            "gitSha": "4c66129b968ab8122964823d1d77677f50884cf7"
+        },
+        "files": 261,
+        "tools": [
+            "clearlydefined/1.5.0",
+            "scancode/3.2.2"
+        ],
+        "toolScore": {
+            "total": 100,
+            "date": 30,
+            "source": 70
+        },
+        "score": {
+            "total": 100,
+            "date": 30,
+            "source": 70
+        }
+    },
+    "licensed": {
+        "declared": "Apache-2.0",
+        "toolScore": {
+            "total": 60,
+            "declared": 30,
+            "discovered": 0,
+            "consistency": 15,
+            "spdx": 15,
+            "texts": 0
+        },
+        "facets": {
+            "core": {
+                "attribution": {
+                    "unknown": 260,
+                    "parties": [
+                        "Copyright 2018-2019 ABSA Group Limited"
+                    ]
+                },
+                "discovered": {
+                    "unknown": 260,
+                    "expressions": [
+                        "Apache-2.0"
+                    ]
+                },
+                "files": 261
+            }
+        },
+        "score": {
+            "total": 60,
+            "declared": 30,
+            "discovered": 0,
+            "consistency": 15,
+            "spdx": 15,
+            "texts": 0
+        }
+    },
+    "coordinates": {
+        "type": "maven",
+        "provider": "mavencentral",
+        "namespace": "za.co.absa.cobrix",
+        "name": "cobol-parser",
+        "revision": "0.4.0"
+    },
+    "_meta": {
+        "schemaVersion": "1.6.1",
+        "updated": "2019-11-04T05:20:21.308Z"
+    },
+    "scores": {
+        "effective": 80,
+        "tool": 80
+    }
+}
