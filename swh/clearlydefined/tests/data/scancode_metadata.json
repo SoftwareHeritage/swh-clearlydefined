@@ -1,0 +1,87 @@
+{
+    "path": "package/LICENSE",
+    "type": "file",
+    "name": "LICENSE",
+    "base_name": "LICENSE",
+    "extension": "",
+    "size": 1073,
+    "date": "1985-10-26",
+    "sha1": "34973274ccef6ab4dfaaf86599792fa9c3fe4689",
+    "md5": "dc2a37e472c366af2a7b8bd0f2ba5af4",
+    "mime_type": "text/plain",
+    "file_type": "ASCII text",
+    "programming_language": null,
+    "is_binary": false,
+    "is_text": true,
+    "is_archive": false,
+    "is_media": false,
+    "is_source": false,
+    "is_script": false,
+    "licenses": [
+        {
+            "key": "mit",
+            "score": 97.66,
+            "name": "MIT License",
+            "short_name": "MIT License",
+            "category": "Permissive",
+            "is_exception": false,
+            "owner": "MIT",
+            "homepage_url": "http://opensource.org/licenses/mit-license.php",
+            "text_url": "http://opensource.org/licenses/mit-license.php",
+            "reference_url": "https://enterprise.dejacode.com/urn/urn:dje:license:mit",
+            "spdx_license_key": "MIT",
+            "spdx_url": "https://spdx.org/licenses/MIT",
+            "start_line": 1,
+            "end_line": 21,
+            "matched_rule": {
+                "identifier": "mit_160.RULE",
+                "license_expression": "mit",
+                "licenses": [
+                    "mit"
+                ],
+                "is_license_text": true,
+                "is_license_notice": false,
+                "is_license_reference": false,
+                "is_license_tag": false,
+                "matcher": "3-seq",
+                "rule_length": 167,
+                "matched_length": 167,
+                "match_coverage": 100,
+                "rule_relevance": 100
+            },
+            "matched_text": "The MIT License\n\nCopyright ([c]) [2017] [Google], [Inc].\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE."
+        }
+    ],
+    "license_expressions": [
+        "mit"
+    ],
+    "holders": [
+        {
+            "value": "Google, Inc.",
+            "start_line": 3,
+            "end_line": 3
+        }
+    ],
+    "copyrights": [
+        {
+            "value": "Copyright (c) 2017 Google, Inc.",
+            "start_line": 3,
+            "end_line": 3
+        }
+    ],
+    "authors": [],
+    "packages": [],
+    "emails": [],
+    "urls": [],
+    "is_legal": true,
+    "is_manifest": false,
+    "is_readme": false,
+    "is_top_level": true,
+    "is_key_file": true,
+    "is_generated": false,
+    "is_license_text": true,
+    "files_count": 0,
+    "dirs_count": 0,
+    "size_count": 0,
+    "scan_errors": []
+}

@@ -3,21 +3,81 @@
 # License: GNU Affero General Public License version 3, or any later version
 # See top-level LICENSE file for more information
 
-import json
-from typing import Any, Dict, Optional, Tuple, List, Union
+from datetime import datetime
+from enum import Enum
 import gzip
+import json
+from typing import Any, Dict, List, Optional, Tuple
 
-from swh.model.hashutil import hash_to_bytes
-from swh.model.hashutil import hash_to_hex
-from swh.model.model import MetadataTargetType, Origin
+import attr
 
 from swh.clearlydefined.error import (
     InvalidComponents,
-    WrongMetadata,
-    ToolNotFound,
     NoJsonExtension,
     RevisionNotFound,
+    ToolNotFound,
     ToolNotSupported,
+    WrongMetadata,
+)
+from swh.model.hashutil import hash_to_bytes, hash_to_hex
+from swh.model.identifiers import parse_swhid
+from swh.model.model import (
+    MetadataAuthority,
+    MetadataAuthorityType,
+    MetadataFetcher,
+    MetadataTargetType,
+    Origin,
+    RawExtrinsicMetadata,
+)
+
+
+class ToolType(Enum):
+    """The type of content pointed to by a snapshot branch. Usually a
+    revision or an alias."""
+
+    DEFINITION = "definition"
+    SCANCODE = "scancode"
+    CLEARLYDEFINED = "clearlydefined"
+    LICENSEE = "licensee"
+    FOSSOLOGY = "fossology"
+
+
+def map_row_data_with_metadata(
+    swh_id: str,
+    type: MetadataTargetType,
+    origin: Optional[Origin],
+    metadata: Dict,
+    date: datetime,
+    format: str,
+) -> RawExtrinsicMetadata:
+    """
+    Take and data_list as input and write
+    data inside RawExtrensicMetadata table inside
+    swh storage
+    """
+    return RawExtrinsicMetadata(
+        type=type,
+        target=parse_swhid(swh_id),
+        discovery_date=date,
+        authority=attr.evolve(authority, metadata=None),
+        fetcher=attr.evolve(fetcher, metadata=None),
+        format=format,
+        origin=origin.url if origin else None,
+        metadata=json.dumps(metadata).encode("utf-8"),
+    )
+
+
+authority = MetadataAuthority(
+    type=MetadataAuthorityType.REGISTRY,
+    url="https://clearlydefined.io/",
+    metadata={},
+)
+
+
+fetcher = MetadataFetcher(
+    name="swh-clearlydefined",
+    version="0.0.1",
+    metadata={},
 )
 
 
@@ -50,21 +110,42 @@ def sha1_git_in_revisions(storage, sha1_git: str) -> bool:
 
 
 def map_sha1_and_add_in_data(
-    storage, sha1: Optional[str], data: list, mapping_status=True
+    storage,
+    sha1: Optional[str],
+    data: List[RawExtrinsicMetadata],
+    file: Dict,
+    date: datetime,
+    format: str,
+    mapping_status=True,
 ) -> bool:
+    """
+    Take sha1, data, file, date, mapping_status as input
+    and return whether the sha1 exists in content, if it exists
+    map sha1 with swhid and push RawExtrensicMetadata object that got
+    mapping row data with RawExtrensicMetadata
+    """
     if sha1:
         assert isinstance(sha1, str)
         swh_id = map_sha1_with_swhid(storage=storage, sha1=sha1)
         if swh_id:
-            data.append((swh_id, MetadataTargetType.CONTENT, None))
+            data.append(
+                map_row_data_with_metadata(
+                    swh_id=swh_id,
+                    type=MetadataTargetType.CONTENT,
+                    origin=None,
+                    metadata=file,
+                    date=date,
+                    format=format,
+                )
+            )
         else:
             mapping_status = False
     return mapping_status
 
 
 def map_scancode(
-    storage, metadata_string: str
-) -> Tuple[bool, List[Tuple[str, MetadataTargetType, None]]]:
+    storage, metadata_string: str, date: datetime
+) -> Tuple[bool, List[RawExtrinsicMetadata]]:
     """
     Take metadata_string and storage as input and try to
     map the sha1 of files with content, return mapping
@@ -76,18 +157,20 @@ def map_scancode(
     content = metadata.get("content") or {}
     files = content.get("files") or {}
     mapping_status = True
-    data: list = []
+    format = "clearlydefined-harvest-scancode-json"
+    data: List[RawExtrinsicMetadata] = []
     for file in files:
         sha1 = file.get("sha1")
         mapping_status = (
-            map_sha1_and_add_in_data(storage, sha1, data) and mapping_status
+            map_sha1_and_add_in_data(storage, sha1, data, file, date, format)
+            and mapping_status
         )
     return mapping_status, data
 
 
 def map_licensee(
-    storage, metadata_string: str
-) -> Tuple[bool, List[Tuple[str, MetadataTargetType, None]]]:
+    storage, metadata_string: str, date: datetime
+) -> Tuple[bool, List[RawExtrinsicMetadata]]:
     """
     Take metadata_string and storage as input and try to
     map the sha1 of files with content, return mapping
@@ -101,18 +184,20 @@ def map_licensee(
     content = output.get("content") or {}
     files = content.get("matched_files") or []
     mapping_status = True
-    data: list = []
+    format = "clearlydefined-harvest-licensee-json"
+    data: List[RawExtrinsicMetadata] = []
     for file in files:
         sha1 = file.get("content_hash")
         mapping_status = (
-            map_sha1_and_add_in_data(storage, sha1, data) and mapping_status
+            map_sha1_and_add_in_data(storage, sha1, data, file, date, format)
+            and mapping_status
         )
     return mapping_status, data
 
 
 def map_clearlydefined(
-    storage, metadata_string: str
-) -> Tuple[bool, List[Tuple[str, MetadataTargetType, None]]]:
+    storage, metadata_string: str, date: datetime
+) -> Tuple[bool, List[RawExtrinsicMetadata]]:
     """
     Take metadata_string and storage as input and try to
     map the sha1 of files with content, return mapping
@@ -123,19 +208,21 @@ def map_clearlydefined(
     metadata = json.loads(metadata_string)
     files = metadata.get("files") or []
     mapping_status = True
-    data: list = []
+    format = "clearlydefined-harvest-clearlydefined-json"
+    data: List[RawExtrinsicMetadata] = []
     for file in files:
         hashes = file.get("hashes") or {}
         sha1 = hashes.get("sha1")
         mapping_status = (
-            map_sha1_and_add_in_data(storage, sha1, data) and mapping_status
+            map_sha1_and_add_in_data(storage, sha1, data, file, date, format)
+            and mapping_status
         )
     return mapping_status, data
 
 
 def map_harvest(
-    storage, tool: str, metadata_string: str
-) -> Tuple[bool, List[Tuple[str, MetadataTargetType, None]]]:
+    storage, tool: str, metadata_string: str, date: datetime
+) -> Tuple[bool, List[RawExtrinsicMetadata]]:
     """
     Take tool, metadata_string and storage as input and try to
     map the sha1 of files with content, return status of
@@ -147,12 +234,12 @@ def map_harvest(
         "clearlydefined": map_clearlydefined,
     }
 
-    return tools[tool](storage=storage, metadata_string=metadata_string)
+    return tools[tool](storage=storage, metadata_string=metadata_string, date=date)
 
 
 def map_definition(
-    storage, metadata_string: str
-) -> Optional[Tuple[bool, List[Tuple[str, MetadataTargetType, Optional[Origin]]]]]:
+    storage, metadata_string: str, date: datetime
+) -> Optional[Tuple[bool, List[RawExtrinsicMetadata]]]:
     """
     Take metadata_string and storage as input and try to
     map the sha1 of defintion with content/ gitSha in revision
@@ -190,25 +277,24 @@ def map_definition(
     else:
         raise WrongMetadata("Wrong metadata")
 
-    return True, [(swh_id, metadata_type, origin)]
+    return True, [
+        map_row_data_with_metadata(
+            swh_id=swh_id,
+            type=metadata_type,
+            origin=origin,
+            metadata=metadata,
+            date=date,
+            format="clearlydefined-definition-json",
+        )
+    ]
 
 
-def map_row(
-    storage, row: tuple
-) -> Union[
-    Optional[Tuple[bool, List[Tuple[str, MetadataTargetType, Optional[Origin]]]]],
-    Tuple[bool, List[Tuple[str, MetadataTargetType, None]]],
-]:
+def get_type_of_tool(cd_path) -> ToolType:
     """
-    Take row and storage as input and try to map that row,
-    if ID of row is invalid then raise exception,
-    if not able to map that row, then return None
-    else return status of that row and data to be written
-    in storage
+    Take cd_path as input if cd_path is invalid then raise exception,
+    else return tyoe of tool of that row
     """
-    cd_path = row[0]
     list_cd_path = cd_path.split("/")
-
     # For example: maven/mavencentral/cobol-parser/abc/0.4.0.json
     if list_cd_path[4] != "revision":
         raise RevisionNotFound(
@@ -220,13 +306,6 @@ def map_row(
         raise NoJsonExtension(
             'Not a supported/known ID, A valid ID should end with ".json" extension.'
         )
-
-    metadata_string = gzip.decompress(row[1]).decode()
-    # if the row doesn't contain any information in metadata return None so it can be
-    # mapped later on
-    if metadata_string == "":
-        return None
-
     # if the ID of row contains 9 components:
     # <package_manager>/<instance>/<namespace>/<name>/revision/<version>/tool/<tool_name>/<tool_version>.json
     # then it is a harvest
@@ -239,23 +318,44 @@ def map_row(
             )
         tool = list_cd_path[7]
         # if the row contains an unknown tool
-        if tool not in ("scancode", "licensee", "clearlydefined"):
+        if tool not in ("scancode", "licensee", "clearlydefined", "fossology"):
             raise ToolNotSupported(f"Tool for this ID {cd_path} is not supported")
-        return map_harvest(
-            tool=tool,
-            metadata_string=metadata_string,
-            storage=storage,
-        )
-
+        return ToolType(tool)
     elif len(list_cd_path) == 6:
-        # if the ID of row contains 6 components:
-        # <package_manager>/<instance>/<namespace>/<name>/revision/<version>.json
-        # then it is a defintion
-        return map_definition(
-            metadata_string=metadata_string,
-            storage=storage,
-        )
+        return ToolType.DEFINITION
     # For example: maven/mavencentral/cobol-parser/abc/revision/def/0.4.0.json
     raise InvalidComponents(
         "Not a supported/known ID, A valid ID should have 6 or 9 components."
     )
+
+
+def map_row(
+    storage, metadata: bytes, id: str, date: datetime
+) -> Optional[Tuple[bool, List[RawExtrinsicMetadata]]]:
+    """
+    Take row and storage as input and try to map that row,
+    if ID of row is invalid then raise exception,
+    if not able to map that row, then return None
+    else return status of that row and data to be written
+    in storage
+    """
+    tool = get_type_of_tool(id).value
+
+    # if the row doesn't contain any information in metadata return None so it can be
+    # mapped later on
+    metadata_string = gzip.decompress(metadata).decode()
+    if metadata_string == "":
+        return None
+
+    if tool == "definition":
+        return map_definition(
+            metadata_string=metadata_string, storage=storage, date=date
+        )
+
+    else:
+        return map_harvest(
+            tool=tool,
+            metadata_string=metadata_string,
+            storage=storage,
+            date=date,
+        )
