@@ -143,81 +143,52 @@ def map_sha1_and_add_in_data(
     return mapping_status
 
 
-def map_scancode(
-    storage, metadata_string: str, date: datetime
-) -> Tuple[bool, List[RawExtrinsicMetadata]]:
+def list_scancode_files(metadata_string: str) -> List[Tuple[str, Dict]]:
     """
-    Take metadata_string and storage as input and try to
-    map the sha1 of files with content, return mapping
-    status of harvest (True if able to map every sha1,
-    False if not able to map every sha1) and
-    data to be written in storage
+    Returns (sha1, filename) pairs for each ScanCode metadata file
+    referenced in the metadata_string.
     """
     metadata = json.loads(metadata_string)
     content = metadata.get("content") or {}
     files = content.get("files") or {}
-    mapping_status = True
-    format = "clearlydefined-harvest-scancode-json"
-    data: List[RawExtrinsicMetadata] = []
+    files_with_sha1 = []
     for file in files:
         sha1 = file.get("sha1")
-        mapping_status = (
-            map_sha1_and_add_in_data(storage, sha1, data, file, date, format)
-            and mapping_status
-        )
-    return mapping_status, data
+        files_with_sha1.append((sha1, file))
+    return files_with_sha1
 
 
-def map_licensee(
-    storage, metadata_string: str, date: datetime
-) -> Tuple[bool, List[RawExtrinsicMetadata]]:
+def list_licensee_files(metadata_string: str) -> List[Tuple[str, Dict]]:
     """
-    Take metadata_string and storage as input and try to
-    map the sha1 of files with content, return mapping
-    status of harvest (True if able to map every sha1,
-    False if not able to map every sha1) and
-    data to be written in storage
+    Returns (sha1, filename) pairs for each Licensee metadata file
+    referenced in the metadata_string.
     """
     metadata = json.loads(metadata_string)
     licensee = metadata.get("licensee") or {}
     output = licensee.get("output") or {}
     content = output.get("content") or {}
     files = content.get("matched_files") or []
-    mapping_status = True
-    format = "clearlydefined-harvest-licensee-json"
-    data: List[RawExtrinsicMetadata] = []
+    files_with_sha1 = []
     for file in files:
         sha1 = file.get("content_hash")
-        mapping_status = (
-            map_sha1_and_add_in_data(storage, sha1, data, file, date, format)
-            and mapping_status
-        )
-    return mapping_status, data
+        files_with_sha1.append((sha1, file))
+    return files_with_sha1
 
 
-def map_clearlydefined(
-    storage, metadata_string: str, date: datetime
-) -> Tuple[bool, List[RawExtrinsicMetadata]]:
+def list_clearlydefined_files(metadata_string: str) -> List[Tuple[str, Dict]]:
     """
-    Take metadata_string and storage as input and try to
-    map the sha1 of files with content, return mapping
-    status of harvest (True if able to map every sha1,
-    False if not able to map every sha1) and
-    data to be written in storage
+    Returns (sha1, filename) pairs for each ClearlyDefined metadata file
+    referenced in the metadata_string.
     """
     metadata = json.loads(metadata_string)
     files = metadata.get("files") or []
-    mapping_status = True
-    format = "clearlydefined-harvest-clearlydefined-json"
-    data: List[RawExtrinsicMetadata] = []
+    files_with_sha1 = []
     for file in files:
         hashes = file.get("hashes") or {}
         sha1 = hashes.get("sha1")
-        mapping_status = (
-            map_sha1_and_add_in_data(storage, sha1, data, file, date, format)
-            and mapping_status
-        )
-    return mapping_status, data
+        assert sha1
+        files_with_sha1.append((sha1, file))
+    return files_with_sha1
 
 
 def map_harvest(
@@ -229,12 +200,26 @@ def map_harvest(
     harvest and data to be written in storage
     """
     tools = {
-        "scancode": map_scancode,
-        "licensee": map_licensee,
-        "clearlydefined": map_clearlydefined,
+        "scancode": list_scancode_files,
+        "licensee": list_licensee_files,
+        "clearlydefined": list_clearlydefined_files,
+    }
+    formats = {
+        "scancode": "clearlydefined-harvest-scancode-json",
+        "licensee": "clearlydefined-harvest-licensee-json",
+        "clearlydefined": "clearlydefined-harvest-clearlydefined-json",
     }
 
-    return tools[tool](storage=storage, metadata_string=metadata_string, date=date)
+    format_ = formats[tool]
+
+    mapping_status = True
+    data: List[RawExtrinsicMetadata] = []
+    for (sha1, file) in tools[tool](metadata_string):
+        mapping_status = (
+            map_sha1_and_add_in_data(storage, sha1, data, file, date, format_)
+            and mapping_status
+        )
+    return mapping_status, data
 
 
 def map_definition(
