@@ -20,8 +20,8 @@ from swh.clearlydefined.error import (
     WrongMetadata,
 )
 from swh.clearlydefined.mapping_utils import (
-    authority,
-    fetcher,
+    AUTHORITY,
+    FETCHER,
     map_definition,
     map_row,
     map_sha1_with_swhid,
@@ -186,8 +186,8 @@ def test_map_row_for_definitions_with_sha1(swh_storage, datadir):
                     "swh:1:cnt:d81cc0710eb6cf9efd5b920a8453e1e07157b6cd"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
-                authority=attr.evolve(authority, metadata=None),
-                fetcher=attr.evolve(fetcher, metadata=None),
+                authority=attr.evolve(AUTHORITY, metadata=None),
+                fetcher=attr.evolve(FETCHER, metadata=None),
                 format="clearlydefined-definition-json",
                 origin="http://central.maven.org/maven2/za/co/absa/cobrix/cobol-parser/"
                 "0.4.0/cobol-parser-0.4.0-sources.jar",
@@ -221,8 +221,8 @@ def test_map_row_for_definitions_with_gitsha1(swh_storage, datadir):
                     "swh:1:rev:4c66129b968ab8122964823d1d77677f50884cf6"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
-                authority=attr.evolve(authority, metadata=None),
-                fetcher=attr.evolve(fetcher, metadata=None),
+                authority=attr.evolve(AUTHORITY, metadata=None),
+                fetcher=attr.evolve(FETCHER, metadata=None),
                 format="clearlydefined-definition-json",
                 origin="http://central.maven.org/maven2/za/co/absa/cobrix/cobol-parser/"
                 "0.4.0/cobol-parser-0.4.0-sources.jar",
@@ -258,8 +258,8 @@ def test_map_row_for_scancode(swh_storage, datadir):
                     "swh:1:cnt:d81cc0710eb6cf9efd5b920a8453e1e07157b6cd"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
-                authority=attr.evolve(authority, metadata=None),
-                fetcher=attr.evolve(fetcher, metadata=None),
+                authority=attr.evolve(AUTHORITY, metadata=None),
+                fetcher=attr.evolve(FETCHER, metadata=None),
                 format="clearlydefined-harvest-scancode-json",
                 origin=None,
                 metadata=json.dumps(
@@ -294,8 +294,8 @@ def test_map_row_for_scancode_true_mapping_status(swh_storage, datadir):
                     "swh:1:cnt:d81cc0710eb6cf9efd5b920a8453e1e07157b6cd"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
-                authority=attr.evolve(authority, metadata=None),
-                fetcher=attr.evolve(fetcher, metadata=None),
+                authority=attr.evolve(AUTHORITY, metadata=None),
+                fetcher=attr.evolve(FETCHER, metadata=None),
                 format="clearlydefined-harvest-scancode-json",
                 origin=None,
                 metadata=json.dumps(
@@ -330,8 +330,8 @@ def test_map_row_for_licensee(swh_storage, datadir):
                     "swh:1:cnt:36fade77193cb6d2bd826161a0979d64c28ab4fa"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
-                authority=attr.evolve(authority, metadata=None),
-                fetcher=attr.evolve(fetcher, metadata=None),
+                authority=attr.evolve(AUTHORITY, metadata=None),
+                fetcher=attr.evolve(FETCHER, metadata=None),
                 format="clearlydefined-harvest-licensee-json",
                 origin=None,
                 metadata=json.dumps(
@@ -367,8 +367,8 @@ def test_map_row_for_licensee_true_mapping_status(swh_storage, datadir):
                     "swh:1:cnt:36fade77193cb6d2bd826161a0979d64c28ab4fa"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
-                authority=attr.evolve(authority, metadata=None),
-                fetcher=attr.evolve(fetcher, metadata=None),
+                authority=attr.evolve(AUTHORITY, metadata=None),
+                fetcher=attr.evolve(FETCHER, metadata=None),
                 format="clearlydefined-harvest-licensee-json",
                 origin=None,
                 metadata=json.dumps(
@@ -404,8 +404,8 @@ def test_map_row_for_clearlydefined(swh_storage, datadir):
                     "swh:1:cnt:36fade77193cb6d2bd826161a0979d64c28ab4fa"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
-                authority=attr.evolve(authority, metadata=None),
-                fetcher=attr.evolve(fetcher, metadata=None),
+                authority=attr.evolve(AUTHORITY, metadata=None),
+                fetcher=attr.evolve(FETCHER, metadata=None),
                 format="clearlydefined-harvest-clearlydefined-json",
                 origin=None,
                 metadata=json.dumps(
@@ -420,8 +420,8 @@ def test_map_row_for_clearlydefined(swh_storage, datadir):
                     "swh:1:cnt:d81cc0710eb6cf9efd5b920a8453e1e07157b6cd"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
-                authority=attr.evolve(authority, metadata=None),
-                fetcher=attr.evolve(fetcher, metadata=None),
+                authority=attr.evolve(AUTHORITY, metadata=None),
+                fetcher=attr.evolve(FETCHER, metadata=None),
                 format="clearlydefined-harvest-clearlydefined-json",
                 origin=None,
                 metadata=json.dumps(
@@ -459,8 +459,8 @@ def test_map_row_for_clearlydefined_true_mapping_status(swh_storage, datadir):
                     "swh:1:cnt:36fade77193cb6d2bd826161a0979d64c28ab4fa"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
-                authority=attr.evolve(authority, metadata=None),
-                fetcher=attr.evolve(fetcher, metadata=None),
+                authority=attr.evolve(AUTHORITY, metadata=None),
+                fetcher=attr.evolve(FETCHER, metadata=None),
                 format="clearlydefined-harvest-clearlydefined-json",
                 origin=None,
                 metadata=json.dumps(
@@ -475,8 +475,8 @@ def test_map_row_for_clearlydefined_true_mapping_status(swh_storage, datadir):
                     "swh:1:cnt:d81cc0710eb6cf9efd5b920a8453e1e07157b6cd"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
-                authority=attr.evolve(authority, metadata=None),
-                fetcher=attr.evolve(fetcher, metadata=None),
+                authority=attr.evolve(AUTHORITY, metadata=None),
+                fetcher=attr.evolve(FETCHER, metadata=None),
                 format="clearlydefined-harvest-clearlydefined-json",
                 origin=None,
                 metadata=json.dumps(

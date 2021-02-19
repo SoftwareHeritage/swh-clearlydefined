@@ -42,6 +42,20 @@ class ToolType(Enum):
     FOSSOLOGY = "fossology"
 
 
+AUTHORITY = MetadataAuthority(
+    type=MetadataAuthorityType.REGISTRY,
+    url="https://clearlydefined.io/",
+    metadata={},
+)
+
+
+FETCHER = MetadataFetcher(
+    name="swh-clearlydefined",
+    version="0.0.1",
+    metadata={},
+)
+
+
 def map_row_data_with_metadata(
     swh_id: str,
     type: MetadataTargetType,
@@ -59,26 +73,12 @@ def map_row_data_with_metadata(
         type=type,
         target=parse_swhid(swh_id),
         discovery_date=date,
-        authority=attr.evolve(authority, metadata=None),
-        fetcher=attr.evolve(fetcher, metadata=None),
+        authority=attr.evolve(AUTHORITY, metadata=None),
+        fetcher=attr.evolve(FETCHER, metadata=None),
         format=format,
         origin=origin.url if origin else None,
         metadata=json.dumps(metadata).encode("utf-8"),
     )
-
-
-authority = MetadataAuthority(
-    type=MetadataAuthorityType.REGISTRY,
-    url="https://clearlydefined.io/",
-    metadata={},
-)
-
-
-fetcher = MetadataFetcher(
-    name="swh-clearlydefined",
-    version="0.0.1",
-    metadata={},
-)
 
 
 def map_sha1_with_swhid(storage, sha1: str) -> Optional[str]:
