@@ -9,8 +9,6 @@ import gzip
 import json
 from typing import Any, Dict, List, Optional, Tuple
 
-import attr
-
 from swh.clearlydefined.error import (
     InvalidComponents,
     NoJsonExtension,
@@ -45,14 +43,14 @@ class ToolType(Enum):
 AUTHORITY = MetadataAuthority(
     type=MetadataAuthorityType.REGISTRY,
     url="https://clearlydefined.io/",
-    metadata={},
+    metadata=None,
 )
 
 
 FETCHER = MetadataFetcher(
     name="swh-clearlydefined",
     version="0.0.1",
-    metadata={},
+    metadata=None,
 )
 
 
@@ -73,8 +71,8 @@ def map_row_data_with_metadata(
         type=type,
         target=parse_swhid(swh_id),
         discovery_date=date,
-        authority=attr.evolve(AUTHORITY, metadata=None),
-        fetcher=attr.evolve(FETCHER, metadata=None),
+        authority=AUTHORITY,
+        fetcher=FETCHER,
         format=format,
         origin=origin.url if origin else None,
         metadata=json.dumps(metadata).encode("utf-8"),
