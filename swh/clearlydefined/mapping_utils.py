@@ -7,6 +7,7 @@ from datetime import datetime
 from enum import Enum
 import gzip
 import json
+import re
 from typing import Any, Dict, List, Optional, Tuple
 
 from swh.clearlydefined.error import (
@@ -15,7 +16,6 @@ from swh.clearlydefined.error import (
     RevisionNotFound,
     ToolNotFound,
     ToolNotSupported,
-    WrongMetadata,
 )
 from swh.model.hashutil import hash_to_bytes, hash_to_hex
 from swh.model.identifiers import parse_swhid
@@ -30,14 +30,21 @@ from swh.model.model import (
 
 
 class ToolType(Enum):
-    """The type of content pointed to by a snapshot branch. Usually a
-    revision or an alias."""
+    """The type of a row"""
 
     DEFINITION = "definition"
     SCANCODE = "scancode"
     CLEARLYDEFINED = "clearlydefined"
     LICENSEE = "licensee"
     FOSSOLOGY = "fossology"
+
+
+class MappingStatus(Enum):
+    """The type of mapping status of a row"""
+
+    MAPPED = "mapped"
+    UNMAPPED = "unmapped"
+    IGNORE = "ignore"
 
 
 AUTHORITY = MetadataAuthority(
@@ -52,6 +59,10 @@ FETCHER = MetadataFetcher(
     version="0.0.1",
     metadata=None,
 )
+
+
+def is_sha1(s):
+    return bool(re.match("^[a-fA-F0-9]+$", s))
 
 
 def map_row_data_with_metadata(
@@ -191,7 +202,7 @@ def list_clearlydefined_files(metadata_string: str) -> List[Tuple[str, Dict]]:
 
 def map_harvest(
     storage, tool: str, metadata_string: str, date: datetime
-) -> Tuple[bool, List[RawExtrinsicMetadata]]:
+) -> Tuple[MappingStatus, List[RawExtrinsicMetadata]]:
     """
     Take tool, metadata_string and storage as input and try to
     map the sha1 of files with content, return status of
@@ -217,12 +228,15 @@ def map_harvest(
             map_sha1_and_add_in_data(storage, sha1, data, file, date, format_)
             and mapping_status
         )
-    return mapping_status, data
+    status = MappingStatus.UNMAPPED
+    if mapping_status:
+        status = MappingStatus.MAPPED
+    return status, data
 
 
 def map_definition(
     storage, metadata_string: str, date: datetime
-) -> Optional[Tuple[bool, List[RawExtrinsicMetadata]]]:
+) -> Tuple[MappingStatus, List[RawExtrinsicMetadata]]:
     """
     Take metadata_string and storage as input and try to
     map the sha1 of defintion with content/ gitSha in revision
@@ -236,31 +250,26 @@ def map_definition(
     source: Dict[str, str] = described.get("sourceLocation") or {}
     url = source.get("url")
     origin = None
-    sha1 = hashes.get("sha1")
     if url:
         assert isinstance(url, str)
         origin = Origin(url=url)
 
+    if not sha1_git:
+        sha1_git = source.get("revision")
+
     if sha1_git:
         assert isinstance(sha1_git, str)
+        if len(sha1_git) != 40 and not is_sha1(sha1_git):
+            return MappingStatus.IGNORE, []
         if not sha1_git_in_revisions(sha1_git=sha1_git, storage=storage):
-            return None
+            return MappingStatus.UNMAPPED, []
         swh_id = "swh:1:rev:{sha1_git}".format(sha1_git=sha1_git)
         metadata_type = MetadataTargetType.REVISION
 
-    elif sha1:
-        assert isinstance(sha1, str)
-        swh_id_sha1 = map_sha1_with_swhid(sha1=sha1, storage=storage)
-        if not swh_id_sha1:
-            return None
-        assert isinstance(swh_id_sha1, str)
-        swh_id = swh_id_sha1
-        metadata_type = MetadataTargetType.CONTENT
-
     else:
-        raise WrongMetadata("Wrong metadata")
+        return MappingStatus.IGNORE, []
 
-    return True, [
+    return MappingStatus.MAPPED, [
         map_row_data_with_metadata(
             swh_id=swh_id,
             type=metadata_type,
@@ -314,7 +323,7 @@ def get_type_of_tool(cd_path) -> ToolType:
 
 def map_row(
     storage, metadata: bytes, id: str, date: datetime
-) -> Optional[Tuple[bool, List[RawExtrinsicMetadata]]]:
+) -> Tuple[MappingStatus, List[RawExtrinsicMetadata]]:
     """
     Take row and storage as input and try to map that row,
     if ID of row is invalid then raise exception,
@@ -328,7 +337,7 @@ def map_row(
     # mapped later on
     metadata_string = gzip.decompress(metadata).decode()
     if metadata_string == "":
-        return None
+        return MappingStatus.UNMAPPED, []
 
     if tool == "definition":
         return map_definition(

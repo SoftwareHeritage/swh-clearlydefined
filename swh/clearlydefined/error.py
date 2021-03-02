@@ -22,14 +22,6 @@ class RevisionNotFound(Exception):
     pass
 
 
-class WrongMetadata(Exception):
-    """
-    Raise this when tried to process invalid metadata
-    """
-
-    pass
-
-
 class NoJsonExtension(Exception):
     """
     Raise this when ID does not have .json extension at end

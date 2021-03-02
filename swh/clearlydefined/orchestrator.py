@@ -4,15 +4,16 @@
 # See top-level LICENSE file for more information
 
 from datetime import datetime
-from typing import Optional
+from typing import List, Optional
 
 import attr
-import psycopg2
 import dateutil
+import psycopg2
 
 from swh.clearlydefined.mapping_utils import (
     AUTHORITY,
     FETCHER,
+    MappingStatus,
     get_type_of_tool,
     map_row,
 )
@@ -81,32 +82,48 @@ def get_last_run_date(cursor) -> Optional[datetime]:
     return dateutil.parser.isoparse(date)
 
 
-def orchestrate_row(storage: StorageInterface, cursor, connection, row: Row) -> bool:
+def write_data_from_list(
+    storage: StorageInterface, metadata_list: List[RawExtrinsicMetadata]
+):
+    """
+    Take list of RawExtrinsicMetadata and
+    write in storage
+    """
+    for data in metadata_list:
+        write_in_storage(storage=storage, metadata=data)
+
+
+def orchestrate_row(
+    storage: StorageInterface, cursor, connection, row: Row
+) -> Optional[bool]:
     """
     Take storage, cursor, connection, row as input
     and if able to completely map that row then write
     data in storage, else store the ID in unmapped_data
-    table and return mapping_status of that row
+    table and return true if that row is fully mapped
+    false for partial or no mapping
     """
     able_to_be_mapped = map_row(
         metadata=row.metadata, id=row.path, date=row.date, storage=storage
     )
-    if not able_to_be_mapped:
+
+    mapping_status, metadata_list = able_to_be_mapped
+
+    if mapping_status == MappingStatus.IGNORE:
+        return None
+
+    elif mapping_status == MappingStatus.UNMAPPED:
         # This is a case when no metadata of row is not able to be mapped
         write_in_not_mapped(
             cd_path=row.path, cursor=cursor, write_connection=connection
         )
+        write_data_from_list(storage=storage, metadata_list=metadata_list)
         return False
+
     else:
         # This is a case when partial metadata of that row is able to be mapped
-        mapping_status, metadata_list = able_to_be_mapped
-        if not mapping_status:
-            write_in_not_mapped(
-                cd_path=row.path, cursor=cursor, write_connection=connection
-            )
-        for data in metadata_list:
-            write_in_storage(storage=storage, metadata=data)
-        return mapping_status
+        write_data_from_list(storage=storage, metadata_list=metadata_list)
+        return True
 
 
 def map_previously_unmapped_data(storage: StorageInterface, cursor, connection) -> None:

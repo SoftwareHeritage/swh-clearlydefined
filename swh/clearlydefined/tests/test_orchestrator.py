@@ -3,8 +3,7 @@
 # License: GNU Affero General Public License version 3, or any later version
 # See top-level LICENSE file for more information
 
-from datetime import datetime
-from datetime import timezone
+from datetime import datetime, timezone
 import gzip
 import os
 from typing import List, Optional, Tuple
@@ -83,36 +82,36 @@ def fill_data_before_updation_of_storage(connection, cursor, datadir):
             "npm/npmjs/@fluidframework/replay-driver/revision/0.31.0/tool/licensee/"
             "9.13.0.json",
             gzip_compress_data("licensee_true.json", datadir=datadir),
-            datetime(year=2021, month=2, day=3,tzinfo=timezone.utc),
-            datetime(year=2021, month=2, day=3,tzinfo=timezone.utc),
+            datetime(year=2021, month=2, day=3, tzinfo=timezone.utc),
+            datetime(year=2021, month=2, day=3, tzinfo=timezone.utc),
             "",
         ),
         (
             "npm/npmjs/@pixi/mesh-extras/revision/5.3.5/tool/clearlydefined/1.3.4.json",
             gzip_compress_data("clearlydefined_true.json", datadir=datadir),
-            datetime(year=2021, month=2, day=4,tzinfo=timezone.utc),
-            datetime(year=2021, month=2, day=4,tzinfo=timezone.utc),
+            datetime(year=2021, month=2, day=4, tzinfo=timezone.utc),
+            datetime(year=2021, month=2, day=4, tzinfo=timezone.utc),
             "",
         ),
         (
             "maven/mavencentral/za.co.absa.cobrix/cobol/revision/0.4.0.json",
             gzip_compress_data("def_not_mapped.json", datadir=datadir),
-            datetime(year=2021, month=2, day=5,tzinfo=timezone.utc),
-            datetime(year=2021, month=2, day=5,tzinfo=timezone.utc),
+            datetime(year=2021, month=2, day=5, tzinfo=timezone.utc),
+            datetime(year=2021, month=2, day=5, tzinfo=timezone.utc),
             "",
         ),
         (
             "npm/npmjs/@pixi/mesh-extras/revision/5.3.6/tool/clearlydefined/1.3.4.json",
             gzip_compress_data("clearydefined_not_mapped.json", datadir=datadir),
-            datetime(year=2021, month=2, day=6,tzinfo=timezone.utc),
-            datetime(year=2021, month=2, day=6,tzinfo=timezone.utc),
+            datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
+            datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
             "",
         ),
         (
             "npm/npmjs/@pixi/mesh-extras/revision/5.3.5/tool/fossology/1.3.4.json",
             gzip_compress_data(None, datadir=datadir),
-            datetime(year=2021, month=2, day=1,tzinfo=timezone.utc),
-            datetime(year=2021, month=2, day=1,tzinfo=timezone.utc),
+            datetime(year=2021, month=2, day=1, tzinfo=timezone.utc),
+            datetime(year=2021, month=2, day=1, tzinfo=timezone.utc),
             "",
         ),
     ]
@@ -124,8 +123,8 @@ def fill_data_after_updation_of_storage(connection, cursor, datadir):
         (
             "maven/mavencentral/cobrix/cobol-parser/revision/0.4.0.json",
             gzip_compress_data(None, datadir=datadir),
-            datetime(year=2021, month=2, day=1,tzinfo=timezone.utc),
-            datetime(year=2021, month=2, day=8,tzinfo=timezone.utc),
+            datetime(year=2021, month=2, day=1, tzinfo=timezone.utc),
+            datetime(year=2021, month=2, day=8, tzinfo=timezone.utc),
             "",
         ),
     ]
@@ -148,7 +147,7 @@ def test_orchestrator(swh_storage, clearcode_dsn, datadir):
     )
     orchestrator(storage=swh_storage, clearcode_dsn=clearcode_dsn)
     # Check how much data is unmapped after first orchestration
-    assert 2 == get_length_of_unmapped_data(connection=connection, cursor=cursor)
+    assert 1 == get_length_of_unmapped_data(connection=connection, cursor=cursor)
     assert datetime(2021, 2, 6, 0, 0, tzinfo=timezone.utc) == get_last_run_date(
         cursor=cursor
     )

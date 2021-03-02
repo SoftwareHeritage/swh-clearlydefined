@@ -8,7 +8,7 @@ clearlydefined - mock metadata (getting False as mapping status, row type clearl
 
 clearlydefined_not_mapped - mock metadata that will not be mapped in first orchestration
 
-def_not_mapped - mock metadata that will not be mapped in first orchestration
+def_not_mapped - mock metadata that will be ignored in orchestration
 
 definitions_not_mapped_sha1_git - mock metadata (getting False as mapping status, row type definition sha1git)
 

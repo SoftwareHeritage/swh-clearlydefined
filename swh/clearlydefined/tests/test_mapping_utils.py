@@ -16,11 +16,11 @@ from swh.clearlydefined.error import (
     RevisionNotFound,
     ToolNotFound,
     ToolNotSupported,
-    WrongMetadata,
 )
 from swh.clearlydefined.mapping_utils import (
     AUTHORITY,
     FETCHER,
+    MappingStatus,
     map_definition,
     map_row,
     map_sha1_with_swhid,
@@ -174,34 +174,17 @@ def test_mapping_with_wrong_sha1(swh_storage):
     assert map_sha1_with_swhid(sha1=sha1, storage=swh_storage) is None
 
 
-def test_map_row_for_definitions_with_sha1(swh_storage, datadir):
+def test_map_row_for_definitions_with_no_sha1_sha1git(swh_storage, datadir):
     add_content_data(swh_storage)
-    expected = (
-        True,
-        [
-            RawExtrinsicMetadata(
-                type=MetadataTargetType.CONTENT,
-                target=parse_swhid(
-                    "swh:1:cnt:d81cc0710eb6cf9efd5b920a8453e1e07157b6cd"
-                ),
-                discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
-                authority=AUTHORITY,
-                fetcher=FETCHER,
-                format="clearlydefined-definition-json",
-                origin="http://central.maven.org/maven2/za/co/absa/cobrix/cobol-parser/"
-                "0.4.0/cobol-parser-0.4.0-sources.jar",
-                metadata=json.dumps(
-                    json.loads(file_data(os.path.join(datadir, "definitions.json")))
-                ).encode("utf-8"),
-            ),
-        ],
-    )
+    expected = MappingStatus.UNMAPPED, []
     assert (
         map_row(
             storage=swh_storage,
             id="maven/mavencentral/za.co.absa.cobrix/cobol-parser/revision/0.4.0.json",
             metadata=gzip.compress(
-                file_data(os.path.join(datadir, "definitions.json")).encode()
+                file_data(
+                    os.path.join(datadir, "def_with_no_sha1_and_sha1git.json")
+                ).encode()
             ),
             date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
         )
@@ -212,7 +195,7 @@ def test_map_row_for_definitions_with_sha1(swh_storage, datadir):
 def test_map_row_for_definitions_with_gitsha1(swh_storage, datadir):
     add_revision_data(swh_storage)
     expected = (
-        True,
+        MappingStatus.MAPPED,
         [
             RawExtrinsicMetadata(
                 type=MetadataTargetType.REVISION,
@@ -249,7 +232,7 @@ def test_map_row_for_definitions_with_gitsha1(swh_storage, datadir):
 def test_map_row_for_scancode(swh_storage, datadir):
     add_content_data(swh_storage)
     expected = (
-        False,
+        MappingStatus.UNMAPPED,
         [
             RawExtrinsicMetadata(
                 type=MetadataTargetType.CONTENT,
@@ -285,7 +268,7 @@ def test_map_row_for_scancode(swh_storage, datadir):
 def test_map_row_for_scancode_true_mapping_status(swh_storage, datadir):
     add_content_data(swh_storage)
     expected = (
-        True,
+        MappingStatus.MAPPED,
         [
             RawExtrinsicMetadata(
                 type=MetadataTargetType.CONTENT,
@@ -321,7 +304,7 @@ def test_map_row_for_scancode_true_mapping_status(swh_storage, datadir):
 def test_map_row_for_licensee(swh_storage, datadir):
     add_content_data(swh_storage)
     expected = (
-        False,
+        MappingStatus.UNMAPPED,
         [
             RawExtrinsicMetadata(
                 type=MetadataTargetType.CONTENT,
@@ -358,7 +341,7 @@ def test_map_row_for_licensee(swh_storage, datadir):
 def test_map_row_for_licensee_true_mapping_status(swh_storage, datadir):
     add_content_data(swh_storage)
     expected = (
-        True,
+        MappingStatus.MAPPED,
         [
             RawExtrinsicMetadata(
                 type=MetadataTargetType.CONTENT,
@@ -395,7 +378,7 @@ def test_map_row_for_licensee_true_mapping_status(swh_storage, datadir):
 def test_map_row_for_clearlydefined(swh_storage, datadir):
     add_content_data(swh_storage)
     expected = (
-        False,
+        MappingStatus.UNMAPPED,
         [
             RawExtrinsicMetadata(
                 type=MetadataTargetType.CONTENT,
@@ -450,7 +433,7 @@ def test_map_row_for_clearlydefined(swh_storage, datadir):
 def test_map_row_for_clearlydefined_true_mapping_status(swh_storage, datadir):
     add_content_data(swh_storage)
     expected = (
-        True,
+        MappingStatus.MAPPED,
         [
             RawExtrinsicMetadata(
                 type=MetadataTargetType.CONTENT,
@@ -504,6 +487,7 @@ def test_map_row_for_clearlydefined_true_mapping_status(swh_storage, datadir):
 
 def test_sha1git_not_in_revision(swh_storage, datadir):
     add_revision_data(swh_storage)
+    expected = MappingStatus.UNMAPPED, []
     assert (
         map_definition(
             metadata_string=file_data(
@@ -512,12 +496,13 @@ def test_sha1git_not_in_revision(swh_storage, datadir):
             storage=swh_storage,
             date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
         )
-        is None
+        == expected
     )
 
 
 def test_sha1_not_in_content(swh_storage, datadir):
     add_content_data(swh_storage)
+    expected = MappingStatus.IGNORE, []
     assert (
         map_definition(
             metadata_string=file_data(
@@ -526,17 +511,21 @@ def test_sha1_not_in_content(swh_storage, datadir):
             storage=swh_storage,
             date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
         )
-        is None
+        == expected
     )
 
 
-def test_map_definition_with_wrong_metadata(swh_storage, datadir):
-    with pytest.raises(WrongMetadata):
+def test_map_definition_with_data_to_be_ignored(swh_storage, datadir):
+    add_content_data(swh_storage)
+    expected = MappingStatus.IGNORE, []
+    assert (
         map_definition(
             metadata_string=file_data(os.path.join(datadir, "licensee.json")),
             storage=swh_storage,
             date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
         )
+        == expected
+    )
 
 
 def test_map_row_with_invalid_ID(swh_storage):
