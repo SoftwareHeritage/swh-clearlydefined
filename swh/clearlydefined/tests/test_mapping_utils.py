@@ -156,8 +156,8 @@ def add_revision_data(swh_storage):
 def test_mapping_sha1_with_swhID(swh_storage):
     add_content_data(swh_storage)
     sha1 = "34973274ccef6ab4dfaaf86599792fa9c3fe4689"
-    assert "swh:1:cnt:d81cc0710eb6cf9efd5b920a8453e1e07157b6cd" == map_sha1_with_swhid(
-        sha1=sha1, storage=swh_storage
+    assert "swh:1:cnt:d81cc0710eb6cf9efd5b920a8453e1e07157b6cd" == str(
+        map_sha1_with_swhid(sha1=sha1, storage=swh_storage)
     )
 
 

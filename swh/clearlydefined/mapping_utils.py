@@ -17,8 +17,8 @@ from swh.clearlydefined.error import (
     ToolNotFound,
     ToolNotSupported,
 )
-from swh.model.hashutil import hash_to_bytes, hash_to_hex
-from swh.model.identifiers import ExtendedSWHID
+from swh.model.hashutil import hash_to_bytes
+from swh.model.identifiers import ExtendedSWHID, ExtendedObjectType
 from swh.model.model import (
     MetadataAuthority,
     MetadataAuthorityType,
@@ -65,7 +65,7 @@ def is_sha1(s):
 
 
 def map_row_data_with_metadata(
-    swh_id: str,
+    target: ExtendedSWHID,
     origin: Optional[Origin],
     metadata: Dict,
     date: datetime,
@@ -77,7 +77,7 @@ def map_row_data_with_metadata(
     swh storage
     """
     return RawExtrinsicMetadata(
-        target=ExtendedSWHID.from_string(swh_id),
+        target=target,
         discovery_date=date,
         authority=AUTHORITY,
         fetcher=FETCHER,
@@ -87,7 +87,7 @@ def map_row_data_with_metadata(
     )
 
 
-def map_sha1_with_swhid(storage, sha1: str) -> Optional[str]:
+def map_sha1_with_swhid(storage, sha1: str) -> Optional[ExtendedSWHID]:
     """
     Take sha1 and storage as input and give the corresponding
     swhID for that sha1
@@ -97,9 +97,9 @@ def map_sha1_with_swhid(storage, sha1: str) -> Optional[str]:
     content = storage.content_get([hash_to_bytes(sha1)])[0]
     if not content:
         return None
-    sha1_git = hash_to_hex(content.sha1_git)
-    swh_id = "swh:1:cnt:{sha1_git}".format(sha1_git=sha1_git)
-    return swh_id
+    return ExtendedSWHID(
+        object_type=ExtendedObjectType.CONTENT, object_id=content.sha1_git
+    )
 
 
 def sha1_git_in_revisions(storage, sha1_git: str) -> bool:
@@ -132,11 +132,11 @@ def map_sha1_and_add_in_data(
     """
     if sha1:
         assert isinstance(sha1, str)
-        swh_id = map_sha1_with_swhid(storage=storage, sha1=sha1)
-        if swh_id:
+        swhid = map_sha1_with_swhid(storage=storage, sha1=sha1)
+        if swhid:
             data.append(
                 map_row_data_with_metadata(
-                    swh_id=swh_id,
+                    target=swhid,
                     origin=None,
                     metadata=file,
                     date=date,
@@ -259,14 +259,16 @@ def map_definition(
             return MappingStatus.IGNORE, []
         if not sha1_git_in_revisions(sha1_git=sha1_git, storage=storage):
             return MappingStatus.UNMAPPED, []
-        swh_id = "swh:1:rev:{sha1_git}".format(sha1_git=sha1_git)
+        swhid = ExtendedSWHID(
+            object_type=ExtendedObjectType.REVISION, object_id=hash_to_bytes(sha1_git)
+        )
 
     else:
         return MappingStatus.IGNORE, []
 
     return MappingStatus.MAPPED, [
         map_row_data_with_metadata(
-            swh_id=swh_id,
+            target=swhid,
             origin=origin,
             metadata=metadata,
             date=date,
