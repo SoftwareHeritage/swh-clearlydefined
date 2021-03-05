@@ -18,12 +18,11 @@ from swh.clearlydefined.error import (
     ToolNotSupported,
 )
 from swh.model.hashutil import hash_to_bytes, hash_to_hex
-from swh.model.identifiers import parse_swhid
+from swh.model.identifiers import ExtendedSWHID
 from swh.model.model import (
     MetadataAuthority,
     MetadataAuthorityType,
     MetadataFetcher,
-    MetadataTargetType,
     Origin,
     RawExtrinsicMetadata,
 )
@@ -67,7 +66,6 @@ def is_sha1(s):
 
 def map_row_data_with_metadata(
     swh_id: str,
-    type: MetadataTargetType,
     origin: Optional[Origin],
     metadata: Dict,
     date: datetime,
@@ -79,8 +77,7 @@ def map_row_data_with_metadata(
     swh storage
     """
     return RawExtrinsicMetadata(
-        type=type,
-        target=parse_swhid(swh_id),
+        target=ExtendedSWHID.from_string(swh_id),
         discovery_date=date,
         authority=AUTHORITY,
         fetcher=FETCHER,
@@ -140,7 +137,6 @@ def map_sha1_and_add_in_data(
             data.append(
                 map_row_data_with_metadata(
                     swh_id=swh_id,
-                    type=MetadataTargetType.CONTENT,
                     origin=None,
                     metadata=file,
                     date=date,
@@ -264,7 +260,6 @@ def map_definition(
         if not sha1_git_in_revisions(sha1_git=sha1_git, storage=storage):
             return MappingStatus.UNMAPPED, []
         swh_id = "swh:1:rev:{sha1_git}".format(sha1_git=sha1_git)
-        metadata_type = MetadataTargetType.REVISION
 
     else:
         return MappingStatus.IGNORE, []
@@ -272,7 +267,6 @@ def map_definition(
     return MappingStatus.MAPPED, [
         map_row_data_with_metadata(
             swh_id=swh_id,
-            type=metadata_type,
             origin=origin,
             metadata=metadata,
             date=date,

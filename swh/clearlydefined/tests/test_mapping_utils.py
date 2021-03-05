@@ -27,12 +27,11 @@ from swh.clearlydefined.mapping_utils import (
 )
 from swh.model import from_disk
 from swh.model.hashutil import hash_to_bytes
-from swh.model.identifiers import parse_swhid
+from swh.model.identifiers import ExtendedSWHID
 from swh.model.model import (
     Content,
     Directory,
     DirectoryEntry,
-    MetadataTargetType,
     Person,
     RawExtrinsicMetadata,
     Revision,
@@ -198,8 +197,7 @@ def test_map_row_for_definitions_with_gitsha1(swh_storage, datadir):
         MappingStatus.MAPPED,
         [
             RawExtrinsicMetadata(
-                type=MetadataTargetType.REVISION,
-                target=parse_swhid(
+                target=ExtendedSWHID.from_string(
                     "swh:1:rev:4c66129b968ab8122964823d1d77677f50884cf6"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
@@ -235,8 +233,7 @@ def test_map_row_for_scancode(swh_storage, datadir):
         MappingStatus.UNMAPPED,
         [
             RawExtrinsicMetadata(
-                type=MetadataTargetType.CONTENT,
-                target=parse_swhid(
+                target=ExtendedSWHID.from_string(
                     "swh:1:cnt:d81cc0710eb6cf9efd5b920a8453e1e07157b6cd"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
@@ -271,8 +268,7 @@ def test_map_row_for_scancode_true_mapping_status(swh_storage, datadir):
         MappingStatus.MAPPED,
         [
             RawExtrinsicMetadata(
-                type=MetadataTargetType.CONTENT,
-                target=parse_swhid(
+                target=ExtendedSWHID.from_string(
                     "swh:1:cnt:d81cc0710eb6cf9efd5b920a8453e1e07157b6cd"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
@@ -307,8 +303,7 @@ def test_map_row_for_licensee(swh_storage, datadir):
         MappingStatus.UNMAPPED,
         [
             RawExtrinsicMetadata(
-                type=MetadataTargetType.CONTENT,
-                target=parse_swhid(
+                target=ExtendedSWHID.from_string(
                     "swh:1:cnt:36fade77193cb6d2bd826161a0979d64c28ab4fa"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
@@ -344,8 +339,7 @@ def test_map_row_for_licensee_true_mapping_status(swh_storage, datadir):
         MappingStatus.MAPPED,
         [
             RawExtrinsicMetadata(
-                type=MetadataTargetType.CONTENT,
-                target=parse_swhid(
+                target=ExtendedSWHID.from_string(
                     "swh:1:cnt:36fade77193cb6d2bd826161a0979d64c28ab4fa"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
@@ -381,8 +375,7 @@ def test_map_row_for_clearlydefined(swh_storage, datadir):
         MappingStatus.UNMAPPED,
         [
             RawExtrinsicMetadata(
-                type=MetadataTargetType.CONTENT,
-                target=parse_swhid(
+                target=ExtendedSWHID.from_string(
                     "swh:1:cnt:36fade77193cb6d2bd826161a0979d64c28ab4fa"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
@@ -397,8 +390,7 @@ def test_map_row_for_clearlydefined(swh_storage, datadir):
                 ).encode("utf-8"),
             ),
             RawExtrinsicMetadata(
-                type=MetadataTargetType.CONTENT,
-                target=parse_swhid(
+                target=ExtendedSWHID.from_string(
                     "swh:1:cnt:d81cc0710eb6cf9efd5b920a8453e1e07157b6cd"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
@@ -436,8 +428,7 @@ def test_map_row_for_clearlydefined_true_mapping_status(swh_storage, datadir):
         MappingStatus.MAPPED,
         [
             RawExtrinsicMetadata(
-                type=MetadataTargetType.CONTENT,
-                target=parse_swhid(
+                target=ExtendedSWHID.from_string(
                     "swh:1:cnt:36fade77193cb6d2bd826161a0979d64c28ab4fa"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
@@ -452,8 +443,7 @@ def test_map_row_for_clearlydefined_true_mapping_status(swh_storage, datadir):
                 ).encode("utf-8"),
             ),
             RawExtrinsicMetadata(
-                type=MetadataTargetType.CONTENT,
-                target=parse_swhid(
+                target=ExtendedSWHID.from_string(
                     "swh:1:cnt:d81cc0710eb6cf9efd5b920a8453e1e07157b6cd"
                 ),
                 discovery_date=datetime(year=2021, month=2, day=6, tzinfo=timezone.utc),
