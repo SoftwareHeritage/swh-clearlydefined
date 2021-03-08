@@ -61,7 +61,7 @@ FETCHER = MetadataFetcher(
 
 
 def is_sha1(s):
-    return bool(re.match("^[a-fA-F0-9]+$", s))
+    return bool(re.match("^[a-fA-F0-9]{40}$", s))
 
 
 def map_row_data_with_metadata(
@@ -255,7 +255,7 @@ def map_definition(
 
     if sha1_git:
         assert isinstance(sha1_git, str)
-        if len(sha1_git) != 40 and not is_sha1(sha1_git):
+        if not is_sha1(sha1_git):
             return MappingStatus.IGNORE, []
         if not sha1_git_in_revisions(sha1_git=sha1_git, storage=storage):
             return MappingStatus.UNMAPPED, []
