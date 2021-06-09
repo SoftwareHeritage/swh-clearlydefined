@@ -16,7 +16,7 @@ environ["LC_ALL"] = "C.UTF-8"
 pytest_plugins = ["swh.storage.pytest_plugin"]
 
 swh_clearcode = postgresql_fact(
-    "postgresql_proc", db_name="clearcode", dump_files=path.join(SQL_DIR, "*.sql")
+    "postgresql_proc", dbname="clearcode", dump_files=path.join(SQL_DIR, "*.sql")
 )
 
 
