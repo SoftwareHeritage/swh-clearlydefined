@@ -18,7 +18,7 @@ from swh.clearlydefined.error import (
     ToolNotSupported,
 )
 from swh.model.hashutil import hash_to_bytes
-from swh.model.identifiers import ExtendedSWHID, ExtendedObjectType
+from swh.model.swhids import ExtendedSWHID, ExtendedObjectType
 from swh.model.model import (
     MetadataAuthority,
     MetadataAuthorityType,

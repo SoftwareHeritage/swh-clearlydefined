@@ -27,7 +27,7 @@ from swh.clearlydefined.mapping_utils import (
 )
 from swh.model import from_disk
 from swh.model.hashutil import hash_to_bytes
-from swh.model.identifiers import ExtendedSWHID
+from swh.model.swhids import ExtendedSWHID
 from swh.model.model import (
     Content,
     Directory,
