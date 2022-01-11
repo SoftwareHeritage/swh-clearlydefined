@@ -36,7 +36,6 @@ from swh.model.model import (
     RawExtrinsicMetadata,
     Revision,
     RevisionType,
-    Timestamp,
     TimestampWithTimezone,
 )
 
@@ -68,23 +67,22 @@ revision_data = [
             email=b"nicolas@example.com",
             fullname=b"Nicolas Dandrimont <nicolas@example.com> ",
         ),
-        date=TimestampWithTimezone.from_datetime(datetime(2009, 2, 14, 1, 31, 30, tzinfo=timezone(timedelta(seconds=7200))))
-,
+        date=TimestampWithTimezone.from_datetime(
+            datetime(2009, 2, 14, 1, 31, 30, tzinfo=timezone(timedelta(seconds=7200)))
+        ),
         committer=Person(
             name=b"St\xc3fano Zacchiroli",
             email=b"stefano@example.com",
             fullname=b"St\xc3fano Zacchiroli <stefano@example.com>",
         ),
-        committer_date=TimestampWithTimezone.from_datetime(datetime(2005, 8, 8, 1, 19, 49, tzinfo=timezone(timedelta(seconds=7200))))
-,
+        committer_date=TimestampWithTimezone.from_datetime(
+            datetime(2005, 8, 8, 1, 19, 49, tzinfo=timezone(timedelta(seconds=7200)))
+        ),
         parents=(),
         type=RevisionType.GIT,
         directory=directory.id,
         metadata={
-            "checksums": {
-                "sha1": "tarball-sha1",
-                "sha256": "tarball-sha256",
-            },
+            "checksums": {"sha1": "tarball-sha1", "sha256": "tarball-sha256",},
             "signed-off-by": "some-dude",
         },
         extra_headers=(
@@ -102,13 +100,24 @@ revision_data = [
             email=b"roberto@example.com",
             fullname=b"Roberto Dicosmo <roberto@example.com>",
         ),
-        date=TimestampWithTimezone.from_datetime(datetime(2009, 2, 13, 11, 30, 43, 220000, tzinfo=timezone(timedelta(days=-1, seconds=43200)))),
-        committer=Person(
-            name=b"tony",
-            email=b"ar@dumont.fr",
-            fullname=b"tony <ar@dumont.fr>",
+        date=TimestampWithTimezone.from_datetime(
+            datetime(
+                2009,
+                2,
+                13,
+                11,
+                30,
+                43,
+                220000,
+                tzinfo=timezone(timedelta(days=-1, seconds=43200)),
+            )
         ),
-        committer_date=TimestampWithTimezone.from_datetime(datetime(2005, 8, 7, 23, 19, 49, 220000, tzinfo=timezone.utc)),
+        committer=Person(
+            name=b"tony", email=b"ar@dumont.fr", fullname=b"tony <ar@dumont.fr>",
+        ),
+        committer_date=TimestampWithTimezone.from_datetime(
+            datetime(2005, 8, 7, 23, 19, 49, 220000, tzinfo=timezone.utc)
+        ),
         parents=(),
         type=RevisionType.GIT,
         directory=directory.id,

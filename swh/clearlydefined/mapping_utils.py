@@ -53,11 +53,7 @@ AUTHORITY = MetadataAuthority(
 )
 
 
-FETCHER = MetadataFetcher(
-    name="swh-clearlydefined",
-    version="0.0.1",
-    metadata=None,
-)
+FETCHER = MetadataFetcher(name="swh-clearlydefined", version="0.0.1", metadata=None,)
 
 
 def is_sha1(s):
@@ -136,11 +132,7 @@ def map_sha1_and_add_in_data(
         if swhid:
             data.append(
                 map_row_data_with_metadata(
-                    target=swhid,
-                    origin=None,
-                    metadata=file,
-                    date=date,
-                    format=format,
+                    target=swhid, origin=None, metadata=file, date=date, format=format,
                 )
             )
         else:
@@ -266,15 +258,18 @@ def map_definition(
     else:
         return MappingStatus.IGNORE, []
 
-    return MappingStatus.MAPPED, [
-        map_row_data_with_metadata(
-            target=swhid,
-            origin=origin,
-            metadata=metadata,
-            date=date,
-            format="clearlydefined-definition-json",
-        )
-    ]
+    return (
+        MappingStatus.MAPPED,
+        [
+            map_row_data_with_metadata(
+                target=swhid,
+                origin=origin,
+                metadata=metadata,
+                date=date,
+                format="clearlydefined-definition-json",
+            )
+        ],
+    )
 
 
 def get_type_of_tool(cd_path) -> ToolType:
@@ -342,8 +337,5 @@ def map_row(
 
     else:
         return map_harvest(
-            tool=tool,
-            metadata_string=metadata_string,
-            storage=storage,
-            date=date,
+            tool=tool, metadata_string=metadata_string, storage=storage, date=date,
         )

@@ -29,8 +29,7 @@ class Row:
 
 
 def write_in_storage(
-    storage: StorageInterface,
-    metadata: RawExtrinsicMetadata,
+    storage: StorageInterface, metadata: RawExtrinsicMetadata,
 ) -> None:
     """
     Take storage and metadata as input
@@ -62,8 +61,7 @@ def write_next_date(
         )
     else:
         cursor.execute(
-            """UPDATE clearcode_env SET value = %s WHERE key='date'""",
-            (new_date,),
+            """UPDATE clearcode_env SET value = %s WHERE key='date'""", (new_date,),
         )
     update_connection.commit()
 

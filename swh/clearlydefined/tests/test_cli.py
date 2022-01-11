@@ -26,8 +26,5 @@ def test_orchestration_from_cli(swh_storage_backend_config, clearcode_dsn):
 
 def test_cli_with_config_without_storage(swh_storage_backend_config, clearcode_dsn):
     runner = CliRunner()
-    result = runner.invoke(
-        cli,
-        ["--clearcode-dsn", clearcode_dsn, "fill_storage"],
-    )
+    result = runner.invoke(cli, ["--clearcode-dsn", clearcode_dsn, "fill_storage"],)
     assert result.exit_code == 2

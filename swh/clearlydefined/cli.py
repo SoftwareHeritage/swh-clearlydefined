@@ -18,10 +18,7 @@ from swh.storage import get_storage
     "--config-file",
     "-C",
     default=None,
-    type=click.Path(
-        exists=True,
-        dir_okay=False,
-    ),
+    type=click.Path(exists=True, dir_okay=False,),
     help="SWH storage config.",
 )
 @click.option("--clearcode-dsn", default=None, type=click.STRING, help="Clearcode DSN.")

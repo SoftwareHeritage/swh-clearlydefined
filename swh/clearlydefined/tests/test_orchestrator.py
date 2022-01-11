@@ -54,10 +54,7 @@ def fill_rows_in_table(
         cursor.execute(
             """INSERT INTO clearcode_cditem (path, content, last_modified_date,
                 last_map_date, map_error, uuid) VALUES (%s, %s, %s, %s, %s, %s);""",
-            (
-                *row,
-                uuid.uuid4(),
-            ),
+            (*row, uuid.uuid4(),),
         )
     connection.commit()
 
