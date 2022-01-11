@@ -3,7 +3,7 @@
 # License: GNU Affero General Public License version 3, or any later version
 # See top-level LICENSE file for more information
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import gzip
 import json
 import os
@@ -68,21 +68,15 @@ revision_data = [
             email=b"nicolas@example.com",
             fullname=b"Nicolas Dandrimont <nicolas@example.com> ",
         ),
-        date=TimestampWithTimezone(
-            timestamp=Timestamp(seconds=1234567890, microseconds=0),
-            offset=120,
-            negative_utc=False,
-        ),
+        date=TimestampWithTimezone.from_datetime(datetime(2009, 2, 14, 1, 31, 30, tzinfo=timezone(timedelta(seconds=7200))))
+,
         committer=Person(
             name=b"St\xc3fano Zacchiroli",
             email=b"stefano@example.com",
             fullname=b"St\xc3fano Zacchiroli <stefano@example.com>",
         ),
-        committer_date=TimestampWithTimezone(
-            timestamp=Timestamp(seconds=1123456789, microseconds=0),
-            offset=120,
-            negative_utc=False,
-        ),
+        committer_date=TimestampWithTimezone.from_datetime(datetime(2005, 8, 8, 1, 19, 49, tzinfo=timezone(timedelta(seconds=7200))))
+,
         parents=(),
         type=RevisionType.GIT,
         directory=directory.id,
@@ -108,27 +102,13 @@ revision_data = [
             email=b"roberto@example.com",
             fullname=b"Roberto Dicosmo <roberto@example.com>",
         ),
-        date=TimestampWithTimezone(
-            timestamp=Timestamp(
-                seconds=1234567843,
-                microseconds=220000,
-            ),
-            offset=-720,
-            negative_utc=False,
-        ),
+        date=TimestampWithTimezone.from_datetime(datetime(2009, 2, 13, 11, 30, 43, 220000, tzinfo=timezone(timedelta(days=-1, seconds=43200)))),
         committer=Person(
             name=b"tony",
             email=b"ar@dumont.fr",
             fullname=b"tony <ar@dumont.fr>",
         ),
-        committer_date=TimestampWithTimezone(
-            timestamp=Timestamp(
-                seconds=1123456789,
-                microseconds=220000,
-            ),
-            offset=0,
-            negative_utc=False,
-        ),
+        committer_date=TimestampWithTimezone.from_datetime(datetime(2005, 8, 7, 23, 19, 49, 220000, tzinfo=timezone.utc)),
         parents=(),
         type=RevisionType.GIT,
         directory=directory.id,
